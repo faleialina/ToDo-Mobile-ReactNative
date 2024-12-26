@@ -62,6 +62,7 @@ export default function User() {
 		setTasks(updatedTasks)
 		saveTasks(updatedTasks)
 	}
+
 	const deleteTask = id => {
 		setTasks(tasks.filter(task => task.id !== id))
 	}
@@ -87,7 +88,6 @@ export default function User() {
 
 	const viewTaskDetails = task => {
 		setSelectedTask(task)
-		setModalVisible(true)
 	}
 
 	return (
@@ -151,7 +151,7 @@ export default function User() {
 					style={styles.imgAvatar}
 					source={require('../../assets/avatar.png')}
 				/>
-				<Text style={styles.textAvatar}>Welcome Jeegar goyani</Text>
+				<Text style={styles.textAvatar}>Welcome</Text>
 			</View>
 
 			<View style={styles.wrapperTextGood}>
@@ -181,21 +181,30 @@ export default function User() {
 								onValueChange={() => changeData(el)}
 								style={styles.checkbox}
 							/>
-							<Text style={styles.label} onPress={() => viewTaskDetails(el)}>
-								{el.title}
-							</Text>
-							<Pressable onPress={() => deleteTask(el.id)}>
-								<Text style={styles.deleteButton}>Удалить</Text>
-							</Pressable>
+							<View style={{ flexDirection: 'row', gap: '15px' }}>
+								<Text style={styles.label} onPress={() => viewTaskDetails(el)}>
+									{el.title}
+								</Text>
+								<Text style={styles.label} onPress={() => viewTaskDetails(el)}>
+									{el.date}
+								</Text>
+								<Text style={styles.label} onPress={() => viewTaskDetails(el)}>
+									{el.status}
+								</Text>
+
+								<Pressable onPress={() => deleteTask(el.id)}>
+									<Text style={styles.deleteButton}>delete</Text>
+								</Pressable>
+							</View>
 						</View>
 					))}
 				</View>
 
 				<Pressable onPress={() => sortTasks('date')}>
-					<Text>Сортировать по дате</Text>
+					<Text>Sort by date</Text>
 				</Pressable>
 				<Pressable onPress={() => sortTasks('status')}>
-					<Text>Сортировать по статусу</Text>
+					<Text>Sort by status</Text>
 				</Pressable>
 			</View>
 
@@ -207,27 +216,30 @@ export default function User() {
 			>
 				<View style={styles.centeredView}>
 					<View style={styles.modalView}>
-						<Text style={styles.modalText}>Детали задачи</Text>
-						<Text>Название: {selectedTask?.title}</Text>
-						<Text>Статус: {selectedTask?.status || 'Не задан'}</Text>
+						<Text style={styles.modalText}>Details of the task</Text>
+						<Text>Name: {selectedTask?.title}</Text>
+						<Text>Status: {selectedTask?.status || 'Не задан'}</Text>
 
 						<Pressable
-							onPress={() => updateTaskStatus(selectedTask.id, 'В процессе')}
+							onPress={() => updateTaskStatus(selectedTask.id, 'In progress')}
 						>
-							<Text>Отметить как "В процессе"</Text>
+							<Text>Mark how "in the process"</Text>
 						</Pressable>
 						<Pressable
-							onPress={() => updateTaskStatus(selectedTask.id, 'Завершено')}
+							onPress={() => updateTaskStatus(selectedTask.id, 'Completed')}
 						>
-							<Text>Отметить как "Завершено"</Text>
+							<Text>Mark how "completed"</Text>
 						</Pressable>
 						<Pressable
-							onPress={() => updateTaskStatus(selectedTask.id, 'Отменено')}
+							onPress={() => updateTaskStatus(selectedTask.id, 'Abolished')}
 						>
-							<Text>Отметить как "Отменено"</Text>
+							<Text>Mark how "canceled"</Text>
 						</Pressable>
-						<Pressable onPress={() => setSelectedTask(null)}>
-							<Text>Закрыть</Text>
+						<Pressable
+							style={[styles.button, styles.buttonClose]}
+							onPress={() => setSelectedTask(null)}
+						>
+							<Text style={styles.textStyle}>Close</Text>
 						</Pressable>
 					</View>
 				</View>

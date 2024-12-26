@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
 		fontWeight: '600',
 		fontSize: 12,
 		marginLeft: 10,
+		textAlign:'center'
 	},
 
 	centeredView: {
@@ -106,6 +107,11 @@ const styles = StyleSheet.create({
 	},
 	buttonClose: {
 		backgroundColor: '#50C2C9',
+	},
+	deleteButton: {
+		backgroundColor: '#50C2C9',
+		borderRadius: 20,
+		paddingHorizontal: 15,
 	},
 	textStyle: {
 		color: 'white',
